@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+    morpheus:
+        image: emanuelefalzone/morpheus:53de4682
+        environment:
+            - NEO4J_SHOPS_URI=bolt://neo4j-shops:7687
+            - NEO4J_SHOPS_USERNAME=neo4j
+            - NEO4J_SHOPS_PASSWORD=shops
+            - NEO4J_NEARBY_URI=bolt://neo4j-nearby:7687
+            - NEO4J_NEARBY_USERNAME=neo4j
+            - NEO4J_NEARBY_PASSWORD=nearby
+            - NEO4J_COUPONS_URI=bolt://neo4j-coupons:7687
+            - NEO4J_COUPONS_USERNAME=neo4j
+            - NEO4J_COUPONS_PASSWORD=coupons
+        ports:
+            - 8888:8888
+            - 4040:4040
+        volumes:
+            - ./src:/home/jovyan/work
+        networks:
+            - magicworld
+    neo4j-shops:
+        image: neo4j:3.5.17
+        hostname: neo4j-shops
+        environment:
+            - NEO4J_AUTH=neo4j/shops
+        ports:
+            - 7474:7474
+            - 7687:7687
+        networks:
+            - magicworld
+    neo4j-nearby:
+        image: neo4j:3.5.17
+        hostname: neo4j-nearby
+        environment:
+            - NEO4J_AUTH=neo4j/nearby
+            - NEO4J_dbms_connector_bolt_advertised__address=:7688
+        ports:
+            - 7475:7474
+            - 7688:7687
+        networks:
+            - magicworld
+    neo4j-coupons:
+        image: neo4j:3.5.17
+        hostname: neo4j-coupons
+        environment:
+            - NEO4J_AUTH=neo4j/coupons
+            - NEO4J_dbms_connector_bolt_advertised__address=:7689
+
+        ports:
+            - 7476:7474
+            - 7689:7687
+        networks:
+            - magicworld
+
+networks:
+    magicworld:
