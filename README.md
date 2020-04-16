@@ -52,11 +52,11 @@ RETURN t, c
 docker-compose up -d
 ```
 
-#### Jupyter Notebook
-The jupyter notebook with the example code can be found visiting [localhost:8888](localhost:8888)
+#### Apache Zeppelin
+The web interface is available at [localhost:8080](localhost:8080)
 
 #### Neo4j
-The example is based on three instances of Neo4j databases. You can access the web interfaces at [localhost:7474](localhost:7474), [localhost:7475](localhost:7475) and  [localhost:7476](localhost:7476). For more details look at ```docker-compose.yml``` file.
+The example is based on four instances of Neo4j databases. You can access the web interfaces at [localhost:7474](localhost:7474), [localhost:7475](localhost:7475), [localhost:7476](localhost:7476) and  [localhost:7477](localhost:7477). For more details look at ```docker-compose.yml``` file.
 
 ### Acknowledgements
 This usecase is inspired by the example reported in [RSP-QL Semantics: A Unifying Query Model to Explain Heterogeneity of RDF Stream Processing Systems](http://dx.doi.org/10.4018/ijswis.2014100102).
