@@ -2,7 +2,7 @@ version: '3'
 
 services:
     morpheus:
-        image: emanuelefalzone/morpheus:53de4682
+        image: emanuelefalzone/morpheus:dda4ffc8
         environment:
             - NEO4J_SHOPS_URI=bolt://neo4j-shops:7687
             - NEO4J_SHOPS_USERNAME=neo4j
@@ -13,11 +13,14 @@ services:
             - NEO4J_COUPONS_URI=bolt://neo4j-coupons:7687
             - NEO4J_COUPONS_USERNAME=neo4j
             - NEO4J_COUPONS_PASSWORD=coupons
+            - NEO4J_NOTIFICATIONS_URI=bolt://neo4j-notifications:7687
+            - NEO4J_NOTIFICATIONS_USERNAME=neo4j
+            - NEO4J_NOTIFICATIONS_PASSWORD=notifications
+            - ZEPPELIN_NOTEBOOK_DIR=/notebook
         ports:
-            - 8888:8888
-            - 4040:4040
+            - 8080:8080
         volumes:
-            - ./src:/home/jovyan/work
+            - ./notebook:/notebook
         networks:
             - magicworld
     neo4j-shops:
@@ -47,10 +50,20 @@ services:
         environment:
             - NEO4J_AUTH=neo4j/coupons
             - NEO4J_dbms_connector_bolt_advertised__address=:7689
-
         ports:
             - 7476:7474
             - 7689:7687
+        networks:
+            - magicworld
+    neo4j-notifications:
+        image: neo4j:3.5.17
+        hostname: neo4j-notifications
+        environment:
+            - NEO4J_AUTH=neo4j/notifications
+            - NEO4J_dbms_connector_bolt_advertised__address=:7690
+        ports:
+            - 7477:7474
+            - 7690:7687
         networks:
             - magicworld
 
